@@ -18,7 +18,7 @@ abstract class Parser
      * @param  mixed $data
      * @return array
      */
-    static public function parse(string $file, $data): array
+    public static function parse(string $file, $data): array
     {
         $file_info = new \SplFileInfo($file);
 
