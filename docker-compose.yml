@@ -14,6 +14,7 @@ services:
     links:
       - redis
       - memcached
+    user: www-data
 
   composer:
     image: composer/composer:latest
