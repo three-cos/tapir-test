@@ -4,7 +4,9 @@
 
 #### Установка
 ```bash
-git clone https://github.com/three-cos/tapir-test.git & docker-compose up
+git clone https://github.com/three-cos/tapir-test.git 
+cd tapir-test
+docker-compose up
 ```
 
 #### Пример использования
@@ -37,6 +39,13 @@ $api->setSource('new_cars.json') // получение данных
 Формируется из GET запроса на основе постфиксов параметра.
 Например:
 `localhost/?brand_is=Kia&price_less=1000000` вернет отфильтрованные машины Kia с ценой меньше миллиона.
+
+Параметры через нижнее подчеркивание должны быть переданы через camelCase
+
+```php
+engineType=Газ // Верно
+engine_type=Газ // Ошибка
+```
 
 ##### Доступные постфиксы
 ```php
