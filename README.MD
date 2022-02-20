@@ -53,6 +53,7 @@ engine_type=Газ // Ошибка
 <param>_in // brand_in=Kia|Mercedes присутствие в массиве
 <param>_from|<param>_greater // price_from=10000 OR price_greater=10000 значение больше параметра
 <param>_to|<param>_less // price_to=20000 OR price_less=20000 значение меньше параметра
+<param>_like // brand_like=mer частичное соответствие
 ```
 
 #### Пагинация

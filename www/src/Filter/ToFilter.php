@@ -17,4 +17,9 @@ class ToFilter extends Filter
             return $result;
         }, []);
     }
+
+    public static function match(string $signature): bool
+    {
+        return preg_match('/(\w*)_(to|less)$/', $signature) !== 0;
+    }
 }

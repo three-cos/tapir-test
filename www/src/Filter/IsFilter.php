@@ -17,4 +17,9 @@ class IsFilter extends Filter
             return $result;
         }, []);
     }
+
+    public static function match(string $signature): bool
+    {
+        return true;
+    }
 }

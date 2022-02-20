@@ -19,4 +19,9 @@ class MatchFilter extends Filter
             return $result;
         }, []);
     }
+
+    public static function match(string $signature): bool
+    {
+        return preg_match('/(\w*)_in$/', $signature) !== 0;
+    }
 }

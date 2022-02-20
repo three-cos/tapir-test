@@ -4,6 +4,9 @@ namespace tests;
 
 use PHPUnit\Framework\TestCase;
 use Warden\CarAPI\Filter\Filter;
+use Warden\CarAPI\Filter\FromFilter;
+use Warden\CarAPI\Filter\LikeFilter;
+use Warden\CarAPI\Filter\ToFilter;
 
 class FilterTest extends TestCase
 {
@@ -69,5 +72,29 @@ class FilterTest extends TestCase
                 'param' => '250',
             ]
         ], $result);
+    }
+
+    public function testFilterFromSignature()
+    {
+        $filter = new FromFilter('param_from', 100);
+
+        $this->assertTrue($filter->match('param_from'));
+        $this->assertFalse($filter->match('wrongParam'));
+    }
+
+    public function testFilterToSignature()
+    {
+        $filter = new ToFilter('param_to', 200);
+
+        $this->assertTrue($filter->match('param_to'));
+        $this->assertFalse($filter->match('wrongParam'));
+    }
+
+    public function testFilterLikeSignature()
+    {
+        $filter = new LikeFilter('param_like', 'carModel');
+
+        $this->assertTrue($filter->match('param_like'));
+        $this->assertFalse($filter->match('wrongParam'));
     }
 }

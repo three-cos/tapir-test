@@ -2,7 +2,7 @@
 
 namespace Warden\CarAPI\Filter;
 
-class FromFilter extends Filter
+class LikeFilter extends Filter
 {
     /**
      * @inheritdoc
@@ -10,7 +10,10 @@ class FromFilter extends Filter
     public function filter(array $items): array
     {
         return array_reduce($items, function ($result, $item) {
-            if ($item[$this->key] >= $this->value) {
+            $expected = mb_strtolower($item[$this->key]);
+            $actual = mb_strtolower($this->value);
+
+            if (strpos($expected, $actual) !== false) {
                 $result[] = $item;
             }
 
@@ -20,6 +23,6 @@ class FromFilter extends Filter
 
     public static function match(string $signature): bool
     {
-        return preg_match('/(\w*)_(from|greater)$/', $signature) !== 0;
+        return preg_match('/(\w*)_like$/', $signature) !== 0;
     }
 }

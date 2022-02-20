@@ -21,6 +21,8 @@ abstract class Filter
      */
     abstract public function filter(array $items): array;
 
+    abstract public static function match(string $signature): bool;
+
     /**
      * Фабрика фильтров на основе GET параметра
      *
@@ -28,7 +30,7 @@ abstract class Filter
      * @param  mixed $value
      * @return Warden\CarAPI\Filter
      */
-    static public function create(string $signature, $value): Filter
+    public static function create(string $signature, $value): Filter
     {
         [$property, $type] = explode('_', $signature);
 
@@ -38,29 +40,18 @@ abstract class Filter
 
         $value = urldecode($value);
 
-        switch ($type) {
-            case 'to':
-            case 'less':
-                $filter = new ToFilter($property, $value);
-                break;
+        $available_filters = [
+            LikeFilter::class,
+            FromFilter::class,
+            ToFilter::class,
+            MatchFilter::class,
+            IsFilter::class,
+        ];
 
-            case 'from':
-            case 'greater':
-                $filter = new FromFilter($property, $value);
-                break;
-
-                // case 'is':
-                // $filter = new PresentFilter($property, $value);
-                // break;
-
-            case 'in':
-                $filter = new MatchFilter($property, $value);
-                break;
-
-            default:
-                $filter = new IsFilter($property, $value);
+        foreach ($available_filters as $filter_class) {
+            if ($filter_class::match($signature)) {
+                return new $filter_class($property, $value);
+            }
         }
-
-        return $filter;
     }
 }
