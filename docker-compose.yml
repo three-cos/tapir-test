@@ -15,6 +15,12 @@ services:
       - redis
       - memcached
 
+  composer:
+    image: composer/composer:latest
+    command: install
+    volumes:
+      - ./www:/var/www/html
+
   redis:
     image: redis:latest
     container_name: app_redis
