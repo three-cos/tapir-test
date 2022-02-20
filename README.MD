@@ -75,7 +75,7 @@ Warden\CarAPI\Response\JsonResponse // в формате JSON
 Warden\CarAPI\Response\XmlResponse // в формате XML
 ```
 
-#### Тестиривание
+#### Тестирование
 ```bash
 /vendor/bin/phpunit/ tests
 ```
