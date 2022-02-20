@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  webserver:
+    build:
+      context: ./images/php
+    restart: 'always'
+    ports:
+      - "80:80"
+    volumes:
+      - ./www:/var/www/html
+    networks:
+      - backend
+    links:
+      - redis
+      - memcached
+
+  redis:
+    image: redis:latest
+    container_name: app_redis
+    ports:
+      - "6379:6379"
+    command: redis-server
+    networks:
+      - backend
+
+  memcached:
+    image: 'bitnami/memcached:latest'
+    ports:
+      - "11211:11211"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
